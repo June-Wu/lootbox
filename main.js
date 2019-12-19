@@ -40,13 +40,13 @@ function generateAliasTable(set) {
             } else {
                 big.push(b);
             }
-            table[i] = {p:s.p, s:s.id, b:b.id};
+            table[i] = {p:s.p, s:s, b:b};
             continue;
         }
 
         if (small.length > 0) {
             let s = small.pop();
-            table[i] = {p:1, s:s.id};
+            table[i] = {p:1, s:s};
             continue;
         }
 
