@@ -1,10 +1,13 @@
 const bigDecimal = require('js-big-decimal');
 
+
+	// precision problem happens when we try to do arithmetic on decimal numbers
+	// this can be dealt with using js-big-decimal module, which hasn't been installed
 function buildAliasTable(itemsArray) {
-    // if(self.isEmpty(itemsArray)) {
-    //     console.log('empty table');
-    //     return [];
-    // }
+    if(self.isEmpty(itemsArray)) {
+        console.log('empty table');
+        return [];
+    }
 
     const items = [];
     let range = 0;
@@ -14,8 +17,7 @@ function buildAliasTable(itemsArray) {
             return;
         }
         //cloning because table generation changes the items' weights
-        //item = self.clone(i);
-        const item = i;
+        const item = self.clone(i);
         range += item.weight;
         item.weight = new bigDecimal(item.weight);
         items.push(item);
@@ -46,7 +48,6 @@ function buildAliasTable(itemsArray) {
             }
             const l = worklistLarge.pop();
 
-            //need to find a way to deal with this line. Avg could be a dec number and arithmetic  on this can be imprecise
             const shortage = avg.subtract(s.weight);
             l.weight = l.weight.subtract(shortage);
             const p = s.weight.divide(avg);
@@ -76,10 +77,10 @@ function buildAliasTable(itemsArray) {
 }
 
 function pickFromAliasTable(aliasTable, random) {
-    // if (self.isEmpty(aliasTable)) {
-    //     console.log('empty table');
-    //     return;
-    //}
+    if (self.isEmpty(aliasTable)) {
+        console.log('empty table');
+        return;
+    }
     const index = Math.floor(Math.random() * aliasTable.length);
     const column = aliasTable[index];
 
